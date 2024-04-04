@@ -1,3 +1,29 @@
+
+<?php
+session_start();
+
+// Check if form is submitted
+if (isset($_POST['submit'])) {
+    // Dummy credentials
+    $admin_username = "admin@gmail.com";
+    $admin_password = "1234";
+
+    // Retrieve username and password from form
+    $username = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Check if username and password match admin credentials
+    if ($username == $admin_username && $password == $admin_password) {
+        // Authentication successful, redirect to dashboard or any other page
+        $_SESSION['username'] = $username; // Storing username in session variable
+        header("Location: index.html");
+        exit();
+    } else {
+        // Authentication failed, display error message
+        $error_message = "Invalid username or password";
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -27,14 +53,14 @@
                   <img src="../assets/images/logos/dark-logo.svg" width="180" alt="">
                 </a>
                 <p class="text-center">Your Social Campaigns</p>
-                <form>
+                <form method='POST' >
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Username</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <input type="email"  name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                   </div>
                   <div class="mb-4">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <input type="password"  name='password' class="form-control" id="exampleInputPassword1">
                   </div>
                   <div class="d-flex align-items-center justify-content-between mb-4">
                     <div class="form-check">
@@ -45,7 +71,7 @@
                     </div>
                     <a class="text-primary fw-bold" href="index.html">Forgot Password ?</a>
                   </div>
-                  <a href="index.html" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</a>
+                  <input type='submit'  name='submit' value='Login'class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">
                   <div class="d-flex align-items-center justify-content-center">
                     <p class="fs-4 mb-0 fw-bold">New to Modernize?</p>
                     <a class="text-primary fw-bold ms-2" href="authentication-register.html">Create an account</a>
